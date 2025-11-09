@@ -13,8 +13,10 @@ import {
   Dialog,
   Grid,
   IconButton,
+  InputAdornment,
   Modal,
   Paper,
+  Snackbar,
   TextField,
   Typography,
 } from "@mui/material";
@@ -150,6 +152,23 @@ const postsDetails = [
 
 function Feed() {
   const [ModalIsOpen, setModalIsOpen] = useState(false);
+  const [copyState, setCopyState] = useState(null);
+  const [url, setUrl] = useState(null);
+  // const url = "www.arav.feed/";
+
+  const handleCopyClipborad = async (url, index) => {
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopyState(index);
+      setTimeout(() => {
+        setCopyState(null);
+      }, 1500);
+    } catch (err) {
+      console.error("failed to copy", err);
+    }
+  };
+
+  const handleShare = () => {};
 
   return (
     <Box sx={{ p: 2 }}>
@@ -195,7 +214,8 @@ function Feed() {
           // minHeight: "15vh",
         }}
       >
-        {postsDetails.map((item) => {
+        {postsDetails.map((item, index) => {
+          // const url = `www.${item.name}.feed/`;
           return (
             <Box key={item.id}>
               <Card
@@ -262,7 +282,6 @@ function Feed() {
                     <FavoriteIcon sx={{ color: "#D95B7F" }} />
                     <Typography variant="body2">{item.likes}</Typography>
                   </Box>
-
                   <Box
                     sx={{
                       display: "flex",
@@ -272,7 +291,13 @@ function Feed() {
                   >
                     <Button
                       // variant="contained"
-                      onClick={() => setModalIsOpen(true)}
+                      onClick={() => {
+                        const url = `www.${item.name}.feed/`;
+                        // return (
+                        setModalIsOpen(true);
+                        setUrl(url);
+                        // )
+                      }}
                       sx={{
                         borderRadius: 10,
                         backgroundColor: "#00000012",
@@ -307,6 +332,8 @@ function Feed() {
                       </Typography>
                     </Button>
                   </Box>
+
+                  {/* modal */}
                   <Modal
                     open={ModalIsOpen}
                     // hideBackdrop
@@ -316,7 +343,8 @@ function Feed() {
                     <Paper
                       sx={{
                         color: "white",
-                        margin: "36% 14% 16%",
+
+                        m: { xs: " 7em 1em", sm: "5em 15em" },
                         // margin: "auto",
                         // position: "absolute",
                         // top: "27%",
@@ -392,31 +420,58 @@ function Feed() {
                           </Grid>
                         ))}
                       </Grid>
-
+                      {/* {postsDetails.map((item, index) => { */}
+                      {/* return ( */}
                       <Box
+                        // key={item.id}
                         sx={{
                           position: "relative",
                         }}
                       >
-                        <Typography variant="body1">Page Link</Typography>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <Typography variant="body1">Page Link</Typography>
+                          {copyState === index && (
+                            <Typography
+                              sx={{
+                                color: "gray",
+                                fontSize: "1em",
+                                // fontFamily: "monospace",
+                              }}
+                            >
+                              Copied to clipboard
+                            </Typography>
+                          )}
+                        </Box>
+
                         <TextField
-                          value={"www.arav.feed/"}
+                          value={url}
                           size="small"
                           fullWidth
-                          // sx={{ p: 2 }}
-                        />
-                        <ContentCopy
-                          size="small"
-                          sx={{
-                            position: "absolute",
-                            top: "1.7em",
-                            right: "0.5em",
-                            color: "ash",
+                          slotProps={{
+                            input: {
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  <IconButton
+                                    onClick={() => {
+                                      handleCopyClipborad(url, index);
+                                    }}
+                                  >
+                                    <ContentCopy sx={{ cursor: "pointer" }} />
+                                  </IconButton>
+                                </InputAdornment>
+                              ),
+                            },
                           }}
                         />
                       </Box>
-
-                      {/* <TextFeild  /> */}
+                      {/* ); */}
+                      {/* })} */}
                     </Paper>
                   </Modal>
                 </Box>

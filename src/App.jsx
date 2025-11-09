@@ -25,8 +25,8 @@ function App() {
       {isLoggedIn ? (
         <Routes>
           {/* <Route path="/" element={} /> */}
-          <Route path="/" element={<Login />} />
-          <Route path="/login" element={<LoginPage />} />
+          {/* <Route path="/" element={<Login />} /> */}
+          <Route path="/" element={<LoginPage />} />
           <Route path="/feed" element={<Feed />} />
         </Routes>
       ) : (

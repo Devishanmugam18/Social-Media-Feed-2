@@ -50,13 +50,9 @@ function SimpleDialog(props) {
   };
 
   return (
-    <Dialog
-      onClose={handleClose}
-      open={open}
-      sx={{ border: "black 5px solid" }}
-    >
-      <DialogTitle>Share post</DialogTitle>
-      <Box sx={{ px: 0 }} /*sx={{ flexGrow: 1 }}*/>
+    <Dialog onClose={handleClose} open={open} sx={{ border: "red 5px solid" }}>
+      <DialogTitle>Share Post</DialogTitle>
+      <Box sx={{ px: 0 }}>
         <Grid container spacing={2} sx={{ mx: 1.4 }} rowGap={2}>
           {socialMedia.map((item) => (
             <Grid

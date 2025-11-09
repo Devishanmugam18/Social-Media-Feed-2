@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import { LoginContext } from "../context/LoginContext";
 import { useNavigate } from "react-router-dom";
 import Paper from "@mui/material/Paper";
+import { Store } from "@mui/icons-material";
 
 const Login = () => {
   const [userName, setUserName] = useState("");
@@ -18,7 +19,8 @@ const Login = () => {
 
     if (userName === "admin" && password === "admin") {
       localStorage.setItem("isLoggedIn", true);
-      setIsLoggedIn(true);
+      // setIsLoggedIn(true);
+      // store.dispatch(isLoggedIn());
       console.log("isLoggedIn", isLoggedIn);
       navigate("/login");
     } else {
