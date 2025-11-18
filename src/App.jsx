@@ -9,6 +9,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import Feed from "./pages/Feed.jsx";
 import Login from "./components/login.jsx";
 import { LoginContext } from "./context/LoginContext.jsx";
+import Profile from "./pages/Profile.jsx";
 
 // import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
@@ -22,16 +23,14 @@ function App() {
       {/* <GoogleSignUpButton onClick={() => setHasError(true)} /> */}
       {/* <BuggyComponent shouldThrow={hasError} /> */}
       {/*<SimpleDialogDemo /> */}
-      {isLoggedIn ? (
-        <Routes>
-          {/* <Route path="/" element={} /> */}
-          {/* <Route path="/" element={<Login />} /> */}
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/feed" element={<Feed />} />
-        </Routes>
-      ) : (
-        <Login />
-      )}
+
+      <Routes>
+        {/* <Route path="/" element={} /> */}
+        {/* <Route path="/" element={<Login />} /> */}
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/feed" element={<Feed />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
     </>
   );
 }

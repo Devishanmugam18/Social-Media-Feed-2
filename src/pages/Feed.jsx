@@ -52,6 +52,7 @@ import {
   CopyAllSharp,
   CopyAllTwoTone,
 } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 const socialMedia = [
   {
@@ -155,6 +156,8 @@ function Feed() {
   const [copyState, setCopyState] = useState(null);
   const [url, setUrl] = useState(null);
   // const url = "www.arav.feed/";
+  // const router = useRouter();
+  const navigate = useNavigate();
 
   const handleCopyClipborad = async (url, index) => {
     try {
@@ -173,6 +176,7 @@ function Feed() {
   return (
     <Box sx={{ p: 2 }}>
       <Box
+        onClick={() => navigate("/profile")}
         sx={{
           display: "flex",
           alignItems: "center",
@@ -292,7 +296,7 @@ function Feed() {
                     <Button
                       // variant="contained"
                       onClick={() => {
-                        const url = `www.${item.name}.feed/`;
+                        const url = `https://www.${item.name}/feed/`;
                         // return (
                         setModalIsOpen(true);
                         setUrl(url);
@@ -452,6 +456,7 @@ function Feed() {
                         <TextField
                           value={url}
                           size="small"
+                          // sx={{ fontSize: "1em" }}
                           fullWidth
                           slotProps={{
                             input: {
