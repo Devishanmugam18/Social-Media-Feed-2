@@ -16,6 +16,7 @@ import parachute from "../assets/ProfilePage/parachute.png";
 import { Repeat } from "@mui/icons-material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { useNavigate } from "react-router-dom";
 
 const myPosts = [
   {
@@ -33,6 +34,7 @@ const myPosts = [
   { id: 3, imgUrl: parachute, content: "Parachute ❤️", likes: 65 },
 ];
 const Profile = () => {
+  const navigate = useNavigate();
   return (
     <Box>
       <Box sx={{ marginBottom: "-1.5em", position: "relative" }}>
@@ -72,6 +74,7 @@ const Profile = () => {
             height: "32px",
             cursor: "pointer",
           }}
+          onClick={() => navigate("/edit-profile")}
         >
           Edit profile
         </Button>

@@ -10,6 +10,7 @@ import Feed from "./pages/Feed.jsx";
 import Login from "./components/login.jsx";
 import { LoginContext } from "./context/LoginContext.jsx";
 import Profile from "./pages/Profile.jsx";
+import EditProfile from "./pages/EditProfile.jsx";
 
 // import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
@@ -30,6 +31,7 @@ function App() {
         <Route path="/" element={<LoginPage />} />
         <Route path="/feed" element={<Feed />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/edit-profile" element={<EditProfile />} />
       </Routes>
     </>
   );
