@@ -1,10 +1,12 @@
-import { Avatar, Box, TextField, Typography } from "@mui/material";
+import { Avatar, Box, Button, TextField, Typography } from "@mui/material";
 import banner from "../assets/ProfilePage/banner.png";
 import profilePic from "../assets/FeedPage/ProfilePic.jpg";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import EditIcon from "@mui/icons-material/Edit";
+import { useNavigate } from "react-router-dom";
 
 function EditProfile() {
+  const navigate = useNavigate();
   return (
     <Box>
       <Box sx={{ marginBottom: "-1.5em", position: "relative" }}>
@@ -30,7 +32,7 @@ function EditProfile() {
             color: "white",
           }}
         >
-          <ArrowBackIcon />
+          <ArrowBackIcon onClick={() => navigate(-1)} />
           <Typography
             sx={{ fontFamily: "karla", fontWeight: "800", fontSize: "1.25rem" }}
           >
@@ -93,6 +95,20 @@ function EditProfile() {
             multiline
           />
         </Box>
+        <Button
+          variant="contained"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            margin: "9em auto",
+            width: "90%",
+            borderRadius: "5em",
+            bgcolor: "black",
+          }}
+        >
+          Save
+        </Button>
       </Box>
     </Box>
   );
