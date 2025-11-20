@@ -3,21 +3,19 @@ import "./App.css";
 import Button from "@mui/material/Button";
 import GoogleSignUpButton from "./mui_components/googleSignUpButton";
 import SimpleDialogDemo from "./mui_components/SharePostModal";
-import LoginPage from "./pages/LoginPage";
 import { Route, Routes } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 import Feed from "./pages/Feed.jsx";
-import Login from "./components/login.jsx";
-import { LoginContext } from "./context/LoginContext.jsx";
 import Profile from "./pages/Profile.jsx";
 import EditProfile from "./pages/EditProfile.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
 
 // import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 function App() {
   const [hasError, setHasError] = useState(false);
-  const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
-  console.log("isLoggedIn ", isLoggedIn);
+  // const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
+  // console.log("isLoggedIn ", isLoggedIn);
 
   return (
     <>

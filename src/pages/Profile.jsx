@@ -17,6 +17,7 @@ import { Repeat } from "@mui/icons-material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useNavigate } from "react-router-dom";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const myPosts = [
   {
@@ -38,6 +39,27 @@ const Profile = () => {
   return (
     <Box>
       <Box sx={{ marginBottom: "-1.5em", position: "relative" }}>
+        {/* <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "0.8em",
+            position: "absolute",
+            top: "0.5em",
+            margin: "0.8em",
+            color: "white",
+          }}
+        > */}
+        <ArrowBackIcon
+          sx={{
+            position: "absolute",
+            top: "1em",
+            left: "0.5em",
+            color: "white",
+          }}
+          onClick={() => navigate(-1)}
+        />
         <img
           src={banner}
           alt=""
