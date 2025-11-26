@@ -1,5 +1,5 @@
-import { React, useState } from "react";
-import profilePic from "../assets/FeedPage/ProfilePic.jpg";
+import { React, useContext, useState } from "react";
+// import profilePic from "../assets/FeedPage/ProfilePic.jpg";
 import {
   Avatar,
   Box,
@@ -53,6 +53,7 @@ import {
   CopyAllTwoTone,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { UserNameAndBioContext } from "../context/UserNameAndBio";
 
 const socialMedia = [
   {
@@ -159,6 +160,10 @@ function Feed() {
   // const router = useRouter();
   const navigate = useNavigate();
 
+  //context name
+  const { userInfo, setUserInfo } = useContext(UserNameAndBioContext);
+  console.log("userInfo.name", userInfo.name);
+
   const handleCopyClipborad = async (url, index) => {
     try {
       await navigator.clipboard.writeText(url);
@@ -186,7 +191,7 @@ function Feed() {
           // ml: "14%",
         }}
       >
-        <Avatar src={profilePic} />
+        <Avatar src={userInfo.profilePic} />
         <Box>
           <Typography variant="p" sx={{ fontSize: "12px", color: "gray" }}>
             Welcome Back,{" "}
@@ -200,7 +205,7 @@ function Feed() {
                 color: "black",
               }}
             >
-              Sakshi Agarwal
+              {userInfo.name}
             </Typography>
           </Typography>
         </Box>

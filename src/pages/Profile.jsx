@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import banner from "../assets/ProfilePage/banner.png";
 import profilePic from "../assets/FeedPage/ProfilePic.jpg";
 import {
@@ -18,6 +18,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { UserNameAndBioContext } from "../context/UserNameAndBio";
 
 const myPosts = [
   {
@@ -36,6 +37,7 @@ const myPosts = [
 ];
 const Profile = () => {
   const navigate = useNavigate();
+  const { userInfo } = useContext(UserNameAndBioContext);
   return (
     <Box>
       <Box sx={{ marginBottom: "-1.5em", position: "relative" }}>
@@ -61,7 +63,7 @@ const Profile = () => {
           onClick={() => navigate(-1)}
         />
         <img
-          src={banner}
+          src={userInfo.bannerPic}
           alt=""
           style={{
             width: "100%",
@@ -72,7 +74,7 @@ const Profile = () => {
         />
         <Avatar
           alt="Sakshi Agarwal"
-          src={profilePic}
+          src={userInfo.profilePic}
           sx={{
             height: 112,
             width: 112,
@@ -111,7 +113,7 @@ const Profile = () => {
             lineHeight: "100%",
           }}
         >
-          Sakshi Agarwal
+          {userInfo.name}
         </Typography>
         <Typography
           sx={{
@@ -125,8 +127,7 @@ const Profile = () => {
             margin: "5px 15px",
           }}
         >
-          Just someone who loves designing, sketching, and finding beauty in the
-          little things 💕
+          {userInfo.bio}
         </Typography>
       </Box>
       <Typography

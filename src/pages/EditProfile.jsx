@@ -1,23 +1,62 @@
 import { Avatar, Box, Button, TextField, Typography } from "@mui/material";
-import banner from "../assets/ProfilePage/banner.png";
-import profilePic from "../assets/FeedPage/ProfilePic.jpg";
+// import banner from "../assets/ProfilePage/banner.png";
+// import profilePic from "../assets/FeedPage/ProfilePic.jpg";
+// import profilePic from "src/assets/FeedPage/ProfilePic.jpg";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { UserNameAndBioContext } from "../context/UserNameAndBio";
 
 function EditProfile() {
   const navigate = useNavigate();
-  const [userInfo, setuserInfo] = useState({ Uname: "", bio: "" });
+  const { userInfo, setUserInfo } = useContext(UserNameAndBioContext);
+
+  //banner pic edit
+  const bannerInputRef = useRef(null);
+
+  const handleBannerClick = () => {
+    // console.log("handleAvatarCalled", fileInputRef);
+
+    bannerInputRef.current?.click();
+  };
+
+  const handleBannerChange = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const url = URL.createObjectURL(file); // preview URL[web:15]
+    setUserInfo(() => ({ ...userInfo, bannerPic: url }));
+    // localStorage.setItem("userinfo", userInfo);
+  };
+
+  //profile pic edit
+  const fileInputRef = useRef(null);
+
+  const handleAvatarClick = () => {
+    console.log("handleAvatarCalled", fileInputRef);
+
+    fileInputRef.current?.click();
+  };
+
+  const handleAvatarChange = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const url = URL.createObjectURL(file); // preview URL[web:15]
+    setUserInfo(() => ({ ...userInfo, profilePic: url }));
+    // localStorage.setItem("userinfo", userInfo);
+  };
 
   useEffect(() => {
-    const saved = localStorage.getItem("userInfo");
-    setuserInfo(
-      saved
-        ? JSON.parse(saved)
-        : {
-            Uname: "Sakshi Agarwal",
+    // const saved = localStorage.getItem("userInfo");
+    setUserInfo(
+      userInfo
+        ? userInfo
+        : // ? JSON.parse(saved)
+          {
+            name: "Sakshi Agarwal",
             bio: "Just someone who loves designing, sketching, and finding beauty in the little things 💕",
+            profilePic: profilePic,
+            bannerPic: banner,
           }
     );
   }, []);
@@ -28,17 +67,14 @@ function EditProfile() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    localStorage.setItem("userInfo", JSON.stringify(userInfo));
-    console.log("submitted");
-
-    console.log(userInfo);
+    // localStorage.setItem("userInfo", JSON.stringify(userInfo));
   };
 
   return (
     <Box>
       <Box sx={{ marginBottom: "-1.5em", position: "relative" }}>
         <img
-          src={banner}
+          src={userInfo.bannerPic}
           alt=""
           style={{
             width: "100%",
@@ -76,12 +112,24 @@ function EditProfile() {
             bgcolor: "#F4F4F4",
             border: "#F4F4F4",
           }}
+          onClick={handleBannerClick}
         >
-          <EditIcon sx={{ fontSize: "1rem", color: "#000000" }} />
+          <EditIcon
+            // onClick={() => console.log("can edit the profile pic")}
+            sx={{ fontSize: "1rem", color: "#000000" }}
+          />
+          <input
+            type="file"
+            accept="image/*"
+            ref={bannerInputRef}
+            style={{ display: "none" }}
+            onChange={handleBannerChange}
+          />
         </Avatar>
+
         <Avatar
           alt="Sakshi Agarwal"
-          src={profilePic}
+          src={userInfo.profilePic}
           sx={{
             height: 112,
             width: 112,
@@ -89,6 +137,7 @@ function EditProfile() {
             left: { xs: "0.7em" },
           }}
         />
+
         <Box sx={{ mt: "-1em" }}>
           <Avatar
             sx={{
@@ -100,16 +149,27 @@ function EditProfile() {
               bgcolor: "#F4F4F4",
               border: "#F4F4F4",
             }}
+            onClick={handleAvatarClick}
           >
             <EditIcon sx={{ fontSize: "1rem", color: "#000000" }} />
+            <input
+              type="file"
+              accept="image/*"
+              ref={fileInputRef}
+              style={{ display: "none" }}
+              onChange={handleAvatarChange}
+            />
           </Avatar>
         </Box>
         <form onSubmit={handleSubmit}>
           <Box sx={{ m: "0 1.2em" }}>
             <TextField
-              value={userInfo.Uname}
+              value={userInfo.name}
               onChange={(e) =>
-                setuserInfo({ ...userInfo, Uname: e.target.value })
+                setUserInfo({
+                  ...userInfo,
+                  name: e.target.value,
+                })
               }
               variant="standard"
               label="Name"
@@ -119,7 +179,10 @@ function EditProfile() {
             <TextField
               value={userInfo.bio}
               onChange={(e) =>
-                setuserInfo({ ...userInfo, bio: e.target.value })
+                setUserInfo({
+                  ...userInfo,
+                  bio: e.target.value,
+                })
               }
               variant="standard"
               label="Bio"
